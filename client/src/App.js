@@ -28,18 +28,25 @@ export default function App () {
 
   const KaydedilenlerListesineEkle = id => {
     // Burası esnek. Aynı filmin birden fazla kez "saved" e eklenmesini engelleyin
+    const foundM = saved.find((m) => m.id === id);
+    if (!foundM) {
+      const movie = movieList.find((m) => m.id === id);
+      setSaved([...saved, movie]);
+   }
+
+   console.log(saved)
   };
 
   return (
     <div>
-      <KaydedilenlerListesi list={[ /* Burası esnek */]} />
+      <KaydedilenlerListesi list={saved} movies={movieList} />
 
       <Switch>
         <Route exact path="/">
           <FilmListesi movies={movieList}/>
         </Route>
         <Route path="/filmler/:id">
-          <Film/>
+          <Film KaydedilenlerListesineEkle={KaydedilenlerListesineEkle}/>
         </Route>
       </Switch>
     </div>
