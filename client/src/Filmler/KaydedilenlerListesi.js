@@ -1,20 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 export default function KaydedilenlerListesi(props) {
+  const history = useHistory();
+  const handleClick = () => {
+    history.push("/");
+  };
   return (
     <div className="saved-list">
       <h3>Kaydedilen Filmler:</h3>
-      {props.list.map(id => (
-        <Link to={`/filmler/${id}`}> 
-          <span className="saved-movie">{props.movies.find((item) => item.id === id).title}</span>
+      {props.list.map(movie => (
+        <Link to={`/filmler/${movie.id}`}>
+        <span className="saved-movie">{movie.title}</span>
         </Link>
-
+        
       ))}
-
       <Link to="/">
-       <div className="home-button">Anasayfa</div>
+      <div onClick={handleClick} className="home-button">Anasayfa</div>
       </Link>
-      </div>
+    </div>
   );
 }

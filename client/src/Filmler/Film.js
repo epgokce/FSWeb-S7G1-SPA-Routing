@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function Film(props) {
   const [movie, setMovie] = useState();
@@ -24,7 +24,9 @@ export default function Film(props) {
   }, [id]);
 
   // Yalnızca esnek görevlere geçtiğinizde burdaki yorum etiketini kaldırın
-  // const filmiKaydet = evt => { }
+  const filmiKaydet = evt => { 
+    props.KaydedilenlerListesineEkle(id);
+  }
 
   if (!movie) {
     return <div>Film bilgisi yükleniyor...</div>;
@@ -50,7 +52,7 @@ export default function Film(props) {
           </div>
         ))}
       </div>
-      <div className="save-button">Kaydet</div>
+      <div className="save-button" onClick={filmiKaydet}>Kaydet</div>
     </div>
   );
 }
